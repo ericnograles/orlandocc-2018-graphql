@@ -1,0 +1,7 @@
+# import SubscriptionUserLoggedIn from "SubscriptionUserLoggedIn.graphql" 
+
+"""All available real-time subscriptions (RTS) on this GraphQL server"""
+type Subscription {
+  """Indicates when a user has logged in"""
+  userLoggedIn: SubscriptionUserLoggedIn
+}

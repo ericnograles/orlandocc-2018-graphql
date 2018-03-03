@@ -1,0 +1,98 @@
+{
+  "name": "orlandocc-2018-graphql",
+  "version": "1.0.0",
+  "description": "An example full stack GraphQL application using Apollo",
+  "main": "index.js",
+  "author": "Eric Nograles <grales@gmail.com>",
+  "private": true,
+  "engines": {
+    "node": "8.9.4"
+  },
+  "dependencies": {
+    "apollo-client-preset": "^1.0.6",
+    "apollo-link-ws": "^1.0.4",
+    "apollo-server-express": "^1.3.2",
+    "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-limiter": "^1.6.1",
+    "glob": "^7.1.2",
+    "graphql": "^0.12.3",
+    "graphql-import": "^0.4.1",
+    "graphql-redis-subscriptions": "^1.4.0",
+    "graphql-tag": "^2.6.1",
+    "graphql-tools": "^2.18.0",
+    "helmet": "^3.9.0",
+    "js-yaml": "^3.9.1",
+    "jsonwebtoken": "^7.4.2",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "ms": "^2.0.0",
+    "node-sass": "^4.5.3",
+    "passport": "^0.3.2",
+    "passport-salesforce": "^0.0.2",
+    "passport-saml": "^0.15.0",
+    "pg": "^7.1.0",
+    "react": "^15.6.1",
+    "react-apollo": "^2.0.4",
+    "react-dom": "^15.6.1",
+    "react-lightning-design-system": "^2.4.0",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "next",
+    "react-scripts": "^1.0.13",
+    "redis": "^2.7.1",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "sequelize": "^4.4.2",
+    "swagger-express-mw": "^0.7.0",
+    "subscriptions-transport-ws": "^0.9.5",
+    "winston": "^2.3.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "./node_modules/.bin/prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "^.+\\.(gif|ttf|eot|svg|jpg|jpeg|png)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "api/**/*.js"
+    ]
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "heroku-postbuild": "./node_modules/.bin/react-scripts build",
+    "start": "node index.js",
+    "develop:api": "./node_modules/.bin/nodemon --exec \"yarn install && node\" --inspect=0.0.0.0:5858 --nolazy index.js",
+    "develop:client": "REACT_APP_REDUX_DEBUGGING_ENABLED=true ./node_modules/.bin/react-scripts start",
+    "swagger:edit": "swagger_swagger_fileName=api/swagger/swagger.yaml swagger project edit -p 3002 --host 0.0.0.0 -s",
+    "test": "./node_modules/.bin/jest",
+    "test:watch": "./node_modules/.bin/jest --watchAll",
+    "prettify:api": "find ./api/**/*.js | xargs ./node_modules/.bin/prettier --write --single-quote",
+    "prettify:client": "find ./src/**/*.js | xargs ./node_modules/.bin/prettier --write --single-quote"
+  },
+  "devDependencies": {
+    "enzyme": "^2.9.1",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.2",
+    "node-mocks-http": "^1.6.4",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.3",
+    "react-addons-test-utils": "^15.6.0",
+    "react-test-renderer": "^15.6.1"
+  }
+}

@@ -1,0 +1,9 @@
+# import Mutation from "Mutation.graphql"
+# import Subscription from "Subscription.graphql"
+# import User from "User.graphql"
+
+"""The top level query for this GraphQL server"""
+type Query {
+  """The currently logged in user"""
+  current_user: User
+}

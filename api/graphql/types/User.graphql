@@ -1,0 +1,11 @@
+  type User {
+    email: String!,
+    first_name: String
+    last_name: String
+    """A 24 hour expiring access token"""
+    access_token: String!
+    """The refresh token used to retrieve another access_token upon expiry"""
+    refresh_token: String!
+    """The expiry of the access_token in UNIX epoch"""
+    expires_in: String!
+  }

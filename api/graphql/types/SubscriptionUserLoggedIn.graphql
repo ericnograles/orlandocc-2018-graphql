@@ -1,0 +1,5 @@
+"""The expected payload for the userLoggedIn Subscription Event"""
+type SubscriptionUserLoggedIn {
+  """The user's email who just logged in"""
+  email: String!
+}

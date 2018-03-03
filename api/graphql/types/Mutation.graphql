@@ -1,0 +1,16 @@
+# import User from "User.graphql"
+# import RegisterUser from "RegisterUser.graphql"
+# import LoginUser from "LoginUser.graphql"
+
+"""Mutations available to this GraphQL Server"""
+type Mutation {
+  """Logs an existing user into DataHub"""
+  login(
+    user: LoginUser
+  ) : User
+
+  """Registers a new user to DataHub"""
+  register(
+    user: RegisterUser
+  ) : User
+}
