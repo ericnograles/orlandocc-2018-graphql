@@ -1,14 +1,5 @@
 version: '3'
 services:
-  app_postgres:
-    container_name: orlandocc_2018_graphql_postgres
-    image: "mdillon/postgis"
-    ports:
-      - 62000:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=orlandocc_2018_graphql
   app_redis:
     container_name: orlandocc_2018_graphql_redis
     image: redis:3.2
@@ -26,28 +17,17 @@ services:
       - ./src:/app/src
       - ./build:/app/build
     depends_on:
-      - app_postgres
       - app_redis
     links:
-      - app_postgres
       - app_redis
     ports:
       - 62004:3000 # React Development Server
       - 62002:3001 # Web API
       - 62003:5858 # Debugging port for Web API
     environment:
-      DATABASE_URL: postgres://postgres:password@app_postgres:5432/orlandocc_2018_graphql
-      POSTGRES_LOGGING: "true" # Logs out every query that Postgres runs through Sequelize
-      RECREATE_SCHEMA: "true" # Nukes the database on every refresh
       REDIS_URL: redis://app_redis:6379
-      AUTH_SAML_ENABLED: "false"
-      AUTH_SALESFORCE_ENABLED: "false"
       REACT_APP_GRAPHQL_HTTP_URI: "http://localhost:62002/api"
       REACT_APP_GRAPHQL_WS_URI: "ws://localhost:62002/"
-      JWT_SECRET: "in_development_mode"
-      RATE_LIMIT_REQUESTS_PER_MINUTE: 120
-      RATE_LIMIT_MINUTES_TILL_RESET: 15
-      SALT_ROUNDS: 12
       WS_PORT: 62002 # WebSockets - in prod it's the same as PORT, but since we proxy through Docker locally, we separate
     command: ["node", "docker.js"]
     restart: always
