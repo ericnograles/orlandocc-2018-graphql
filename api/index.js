@@ -1,35 +1,19 @@
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const winston = require('winston');
-const bodyParser = require('body-parser');
-const Promise = require('bluebird');
+const bodyParser = require('body-parser'); 
 const path = require('path');
-const connectToPassport = require('./middleware/passport');
 const cors = require('cors');
-const models = require('./models');
 const helmet = require('helmet');
 
-const { redisClient, createClient } = require('./services/redis');
-const { ENVIRONMENT, RATE_LIMITS, REDIS } = require('./config');
+const { ENVIRONMENT } = require('./config');
 const Schema = require('./graphql/schema');
 
 module.exports = api;
 
 async function api(app) {
-  const limiter = require('express-limiter')(app, redisClient);
-  limiter({
-    path: '*',
-    method: 'all',
-    lookup: ['connection.remoteAddress'],
-    total:
-      RATE_LIMITS.REQUESTS_PER_MINUTE *
-      RATE_LIMITS.MINUTES_TILL_RESET,
-    expire: 1000 * 60 * RATE_LIMITS.MINUTES_TILL_RESET
-  });
-  app.use(helmet());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(cors());
-  app = connectToPassport(app);
 
   // GraphQL Boilerplate follows
   const schemaFunction =
@@ -82,7 +66,5 @@ async function api(app) {
     })
   );
 
-  await models.Migrations.MigratePermission();
-  await models.Migrations.MigrateUser();
   return app;
 }
