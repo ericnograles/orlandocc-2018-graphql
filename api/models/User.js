@@ -92,12 +92,12 @@ async function migrate() {
 
     let createEmails = [
       {
-        email: 'enograles+graphql.primary@appirio.com',
+        email: 'grales@gmail.com',
         is_primary: true,
         user_id: user.id
       },
       {
-        email: 'enograles+graphql.secondary@appirio.com',
+        email: 'grales+secondary@gmail.com',
         is_primary: false,
         user_id: user.id
       }
