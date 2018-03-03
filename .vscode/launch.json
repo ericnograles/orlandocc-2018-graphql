@@ -9,7 +9,7 @@
             "name": "Attach to Nodemon",
             "type": "node",
             "request": "attach",
-            "port": 65003,
+            "port": 62003,
             "address": "localhost",
             "remoteRoot": "/app",
             "localRoot": "${workspaceRoot}",
