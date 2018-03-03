@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 import { ApolloProvider } from 'react-apollo';
-import DataHubClient from './graphql/client';
+import GraphQLClient from './graphql/client';
 
 // Redux
 import configureStore, { history } from './redux/store';
@@ -20,7 +20,7 @@ import NotFound from './pages/NotFound';
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
-    <ApolloProvider client={DataHubClient}>
+    <ApolloProvider client={GraphQLClient}>
       <ConnectedRouter history={history}>
         <div>
           <Switch>
