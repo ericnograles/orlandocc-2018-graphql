@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as ProfileActionCreators from '../actions/profile';
+import * as ProfileActionCreators from '../actions/profile.creators';
 
 export default function connectAsAnonymous(WrappedComponent) {
   class ConnectedComponent extends React.Component {

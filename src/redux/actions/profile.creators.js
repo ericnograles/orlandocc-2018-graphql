@@ -1,4 +1,4 @@
-import { PROFILE } from '../actionTypes';
+import { PROFILE } from './profile.types';
 
 export function retrieveProfileFromToken(accessToken) {
   return async (dispatch, store) => {

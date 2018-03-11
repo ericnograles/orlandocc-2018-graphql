@@ -2,7 +2,7 @@
 
 ## Overview
 
-An example full stack GraphQL application using Apollo
+An example full stack GraphQL application using Apollo Server and Client. Presented on Orlando Code Camp 2018 by Eric Nograles
 
 ## Prerequisites
 
@@ -15,13 +15,13 @@ An example full stack GraphQL application using Apollo
 ### Scaffolding
 
 1. At the root of this repo, execute `docker-compose up`
-1. Once you see your container running as indicated by the message `LOG: database system is ready to accept connections`
+1. Once you see your container running as indicated by the message `orlandocc_2018_graphql_redis | 1:M 11 Mar 11:06:46.779 * The server is now ready to accept connections on port 6379`
 1. To stop all the code and infrastructure, press Ctrl + C from this terminal
-1. To delete all of the infrastructure and start from scratch, at the root of this repo, execute `docker-compose down && ./docker_clean.sh && docker-compose up`
+1. To delete all of the infrastructure and start from scratch, at the root of this repo (after stopping it with Ctrl + C), execute `docker-compose down && ./docker_clean.sh && docker-compose up`
 
 ### GraphQL
 
-1. Open a terminal and execute `./docker_bash.sh` to open a bash into the container
+1. Open a terminal and execute `./docker_bash.sh` or `./docker_zsh.sh` to open a bash or zsh into the container
 1. Execute `yarn run develop:api` in the bash of the container
 1. Open `http://localhost:62002/explorer` in a browser for the GraphiQL Explorer
    * **Note**: Any changes in `api` will reflect in your Docker container automatically thanks to Nodemon
@@ -29,7 +29,7 @@ An example full stack GraphQL application using Apollo
 
 ### Web Client
 
-1. Open a terminal and execute `./docker_bash.sh` to open a bash into the container
+1. Open a terminal and execute `./docker_bash.sh` or `./docker_zsh.sh` to open a bash or zsh into the container
 1. Execute `yarn run develop:client` in the bash of the container
 1. Open `http://localhost:62004` for the `create-react-app` dev server
 

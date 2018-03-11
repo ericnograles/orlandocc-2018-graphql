@@ -1,4 +1,4 @@
-import { PROFILE } from '../actionTypes';
+import { PROFILE } from '../actions/profile.types';
 
 const initialState = {};
 

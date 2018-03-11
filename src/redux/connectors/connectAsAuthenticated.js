@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { LOCAL_STORAGE, PROFILE_STATUS } from '../../constants';
-import * as ProfileActionCreators from '../actions/profile';
+import * as ProfileActionCreators from '../actions/profile.creators';
 
 export default function connectAsAuthenticated(WrappedComponent) {
   class ConnectedComponent extends React.Component {
