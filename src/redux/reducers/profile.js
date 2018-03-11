@@ -1,6 +1,8 @@
 import { PROFILE } from '../actions/profile.types';
 
-const initialState = {};
+const initialState = {
+  loggedIn: false
+};
 
 export const profile = (state = initialState, action) => {
   switch (action.type) {

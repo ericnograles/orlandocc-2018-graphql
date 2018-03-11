@@ -15,7 +15,10 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import configureStore, { history } from './redux/store';
 
 // Higher Order Components
-import { connectAsAnonymous } from './redux/connectors';
+import { connectWithReduxAndRouter } from './redux/connectors';
+
+// App-wide components
+import TopAppBar from './components/TopAppBar';
 
 // Routes
 import Root from './pages/Root';
@@ -27,8 +30,9 @@ ReactDOM.render(
     <ApolloProvider client={GraphQLClient}>
       <ConnectedRouter history={history}>
         <div>
+          <TopAppBar />
           <Switch>
-            <Route exact path="/" component={connectAsAnonymous(Root)} />
+            <Route exact path="/" component={connectWithReduxAndRouter(Root)} />
             <Route component={NotFound} />
           </Switch>
         </div>

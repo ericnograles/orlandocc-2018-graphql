@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { LOCAL_STORAGE, PROFILE_STATUS } from '../../constants';
 import * as ProfileActionCreators from '../actions/profile.creators';
 
-export default function connectAsAuthenticated(WrappedComponent) {
+export default function connectWithReduxAndRouter(WrappedComponent) {
   class ConnectedComponent extends React.Component {
     componentDidMount() {
       const { profileActions, push } = this.props;

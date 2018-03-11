@@ -1,5 +1,4 @@
 import React from 'react';
-import TopAppBar from './components/TopAppBar';
 import { withStyles } from 'material-ui/styles';
 
 const styles = {
@@ -13,7 +12,6 @@ class Root extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <TopAppBar {...this.props} />
       </div>
     );
   }

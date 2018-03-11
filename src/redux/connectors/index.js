@@ -1,4 +1,4 @@
-import connectAsAnonymous from './connectAsAnonymous';
-import connectAsAuthenticated from './connectAsAuthenticated';
+import connectWithRedux from './connectWithRedux';
+import connectWithReduxAndRouter from './connectWithReduxAndRouter';
 
-export { connectAsAuthenticated, connectAsAnonymous };
+export { connectWithRedux, connectWithReduxAndRouter };

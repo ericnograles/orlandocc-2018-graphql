@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ProfileActionCreators from '../actions/profile.creators';
 
-export default function connectAsAnonymous(WrappedComponent) {
+export default function connectWithRedux(WrappedComponent) {
   class ConnectedComponent extends React.Component {
     render() {
       return <WrappedComponent {...this.props} />;
