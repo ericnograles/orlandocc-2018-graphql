@@ -66,7 +66,7 @@
     "build": "react-scripts build",
     "heroku-postbuild": "./node_modules/.bin/react-scripts build",
     "start": "node index.js",
-    "develop:api": "./node_modules/.bin/nodemon --exec \"yarn install && node\" --inspect=0.0.0.0:5858 --nolazy index.js",
+    "develop:api": "./node_modules/.bin/nodemon -w js,json,graphql --exec \"yarn install && node\" --inspect=0.0.0.0:5858 --nolazy index.js",
     "develop:client": "REACT_APP_REDUX_DEBUGGING_ENABLED=true ./node_modules/.bin/react-scripts start",
     "swagger:edit": "swagger_swagger_fileName=api/swagger/swagger.yaml swagger project edit -p 3002 --host 0.0.0.0 -s",
     "test": "./node_modules/.bin/jest",

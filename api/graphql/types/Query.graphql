@@ -5,5 +5,8 @@
 """The top level query for this GraphQL server"""
 type Query {
   """The currently logged in user"""
-  current_user: User
+  current_user(
+    """A previously issued JWT to identify a user"""
+    access_token: String!
+  ): User
 }

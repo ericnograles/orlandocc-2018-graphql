@@ -1,20 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withApollo } from 'react-apollo';
+import { compose } from 'recompose';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
-import { LOCAL_STORAGE, PROFILE_STATUS } from '../../constants';
+import { LOCAL_STORAGE } from '../../constants';
+import { PROFILE_STATUS } from '../reducers/profile';
 import * as ProfileActionCreators from '../actions/profile.creators';
 
-export default function connectWithReduxAndRouter(WrappedComponent) {
+export default function connectAsAuthenticated(WrappedComponent) {
   class ConnectedComponent extends React.Component {
     componentDidMount() {
-      const { profileActions, push } = this.props;
+      const { profileActions, push, client } = this.props;
       if (!localStorage[LOCAL_STORAGE.TOKEN]) {
         push('/');
       }
       if (localStorage[LOCAL_STORAGE.TOKEN]) {
         let auth = JSON.parse(localStorage[LOCAL_STORAGE.TOKEN]);
-        profileActions.retrieveProfileFromToken(auth.access_token);
+        profileActions.retrieveProfileFromToken(auth.access_token, client);
       }
     }
 
@@ -45,5 +48,10 @@ export default function connectWithReduxAndRouter(WrappedComponent) {
     };
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(ConnectedComponent);
+  const enhance = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withApollo
+  )
+
+  return enhance(ConnectedComponent);
 }

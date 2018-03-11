@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import connectOnly from '../redux/connectors/connectOnly';
+import { PROFILE_STATUS } from '../redux/reducers/profile';
 
 const styles = {
   root: {},
@@ -21,11 +22,16 @@ const styles = {
 };
 
 class TopAppBar extends React.Component {
+  logout = () => {
+    const { profileActions } = this.props;
+    profileActions.logout();
+  }
+
   render() {
-    const { classes, profile, routing } = this.props;
+    const { classes, profile } = this.props;
 
     return (
-      profile.loggedIn && 
+      profile.status === PROFILE_STATUS.AUTHENTICATED && 
         <AppBar position="static">
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
@@ -34,7 +40,7 @@ class TopAppBar extends React.Component {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Orlando Code Camp 2018 GraphQL
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={this.logout}>Logout</Button>
         </Toolbar>
       </AppBar>
     );
