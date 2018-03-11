@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 
 const styles = {
+  root: {},
   flex: {
     flex: 1,
   },

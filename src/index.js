@@ -7,6 +7,10 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ApolloProvider } from 'react-apollo';
 import GraphQLClient from './graphql/client';
 
+// Localizes Roboto and Material Design
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+
+
 // Redux
 import configureStore, { history } from './redux/store';
 
