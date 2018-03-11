@@ -31,9 +31,10 @@ export default function connectWithReduxAndRouter(WrappedComponent) {
   }
 
   function mapStateToProps(state) {
-    let { profile } = state;
+    let { profile, routing } = state;
     return {
-      profile
+      profile,
+      routing
     };
   }
 

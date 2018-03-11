@@ -10,12 +10,8 @@ import GraphQLClient from './graphql/client';
 // Localizes Roboto and Material Design
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
-
 // Redux
 import configureStore, { history } from './redux/store';
-
-// Higher Order Components
-import { connectWithReduxAndRouter } from './redux/connectors';
 
 // App-wide components
 import TopAppBar from './components/TopAppBar';
@@ -23,6 +19,7 @@ import TopAppBar from './components/TopAppBar';
 // Routes
 import Root from './pages/Root';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login';
 
 const store = configureStore();
 ReactDOM.render(
@@ -32,7 +29,8 @@ ReactDOM.render(
         <div>
           <TopAppBar />
           <Switch>
-            <Route exact path="/" component={connectWithReduxAndRouter(Root)} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Root} />
             <Route component={NotFound} />
           </Switch>
         </div>
