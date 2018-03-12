@@ -44,7 +44,7 @@ class Chat extends React.Component {
       }
     }`;
 
-    this.subscription = client.subscribe({
+    const subscription = client.subscribe({
       query,
       variables: {
         access_token,
@@ -53,7 +53,7 @@ class Chat extends React.Component {
     });
 
     // Event handler for the subscription
-    this.subscription.subscribe({
+    this.subscription = subscription.subscribe({
       next(payload) {
         if (payload.data && !payload.errors) {
           let { channelMessageSent } = payload.data;
@@ -68,6 +68,13 @@ class Chat extends React.Component {
         }
       }
     });
+  }
+
+  componentWillUnmount() {
+    console.log(this.subscription);
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
