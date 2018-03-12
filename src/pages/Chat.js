@@ -28,6 +28,9 @@ class Chat extends React.Component {
     messages: []
   };
 
+  // Unsubscribe handler from Apollo
+  subscription = null;
+
   subscribeToMessages = (props) => {
     const setState = this.setState.bind(this);
     const { client, profile } = props;
@@ -40,7 +43,7 @@ class Chat extends React.Component {
       }
     }`;
 
-    const subscription = client.subscribe({
+    this.subscription = client.subscribe({
       query,
       variables: {
         access_token,
@@ -48,8 +51,8 @@ class Chat extends React.Component {
       }
     });
 
-    // Append message
-    subscription.subscribe({
+    // Event handler for the subscription
+    this.subscription.subscribe({
       next(payload) {
         if (payload.data && !payload.errors) {
           let { channelMessageSent } = payload.data;
@@ -64,6 +67,12 @@ class Chat extends React.Component {
         }
       }
     });
+  }
+
+  componentWillUnmount() {
+    if (this.subscription && typeof this.subscription === 'function') {
+      this.subscription();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,6 +94,13 @@ class Chat extends React.Component {
       [name]: event.target.value
     });
   };
+
+  onKeyPress = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.sendMessage();
+    }
+  }
 
   sendMessage = async () => {
     const { mutate, profile } = this.props;
@@ -121,8 +137,8 @@ class Chat extends React.Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={24} align="center">
-          {messages.map(message => 
-            <Grid item xs={12}>
+          {messages.map((message, index) => 
+            <Grid item xs={12} key={`${message.sender_email}_${index}`}>
               {`${message.sender_email} (${new Date()}): ${message.text}`}
             </Grid>
           )}
@@ -135,6 +151,7 @@ class Chat extends React.Component {
                 className={classes.textField}
                 value={this.state.message}
                 onChange={this.onChange('message')}
+                onKeyPress={this.onKeyPress}
                 margin="normal"
               />
               <Button

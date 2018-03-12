@@ -13,7 +13,7 @@ export default function connectAsAuthenticated(WrappedComponent) {
     componentDidMount() {
       const { profileActions, push, client } = this.props;
       if (!localStorage[LOCAL_STORAGE.TOKEN]) {
-        push('/');
+        push('/login');
       }
       if (localStorage[LOCAL_STORAGE.TOKEN]) {
         let auth = JSON.parse(localStorage[LOCAL_STORAGE.TOKEN]);
