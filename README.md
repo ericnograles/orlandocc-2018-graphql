@@ -1,8 +1,14 @@
-# orlandocc-2018-graphql
+# REST in Peace: The Rise of GraphQL
+
+## Orlando Code Camp 2018
+
+### Presented by Eric Nograles
 
 ## Overview
 
 An example full stack GraphQL application using Apollo Server and Client. Presented on Orlando Code Camp 2018 by Eric Nograles
+
+This application demonstrates all facets of GraphQL: Queries, Mutations, and Subscriptions, and how they might tie into a React/Redux application
 
 ## Prerequisites
 
