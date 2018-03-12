@@ -15,6 +15,7 @@ services:
       - ./public:/app/public
       - ./src:/app/src
       - ./build:/app/build
+      - ./yarn.lock:/app/yarn.lock
     depends_on:
       - app_redis
     links:

@@ -4,6 +4,7 @@ import { split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCache } from 'apollo-cache-persist';
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -30,7 +31,13 @@ const link = split(
   httpLink
 );
 
+const cache = new InMemoryCache();
+persistCache({
+  cache,
+  storage: window.localStorage
+});
+
 export default new ApolloClient({
   link,
-  cache: new InMemoryCache()
+  cache
 });
