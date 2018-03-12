@@ -30,7 +30,6 @@ class Chat extends React.Component {
 
   // Unsubscribe handler from Apollo
   subscription = null;
-
   subscribeToMessages = (props) => {
     const setState = this.setState.bind(this);
     const { client, profile } = props;
@@ -67,12 +66,6 @@ class Chat extends React.Component {
         }
       }
     });
-  }
-
-  componentWillUnmount() {
-    if (this.subscription && typeof this.subscription === 'function') {
-      this.subscription();
-    }
   }
 
   componentWillReceiveProps(nextProps) {
