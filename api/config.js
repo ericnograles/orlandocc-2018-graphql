@@ -29,7 +29,8 @@ const ENVIRONMENT = {
   PORT: port,
   // In production, we serve WS over the same port as the Web App, under the assumption
   // we are behind a load balancer
-  WS_PORT: isLocalDevelopment ? process.env.WS_PORT : port 
+  WS_PORT: isLocalDevelopment ? process.env.WS_PORT : port,
+  WS_URI: process.env.REACT_APP_GRAPHQL_WS_URI 
 };
 
 const REDIS = {

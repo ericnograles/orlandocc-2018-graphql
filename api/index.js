@@ -60,7 +60,8 @@ async function api(app) {
     '/explorer',
     graphiqlExpress({
       endpointURL: '/api',
-      subscriptionsEndpoint: `ws://localhost:${ENVIRONMENT.WS_PORT}/`,
+      subscriptionsEndpoint: !ENVIRONMENT.IS_PRODUCTION ? 
+        `ws://localhost:${ENVIRONMENT.WS_PORT}/` : ENVIRONMENT.WS_URI,
       query: ``
     })
   );
