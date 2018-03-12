@@ -54,7 +54,7 @@ class Login extends React.Component {
       if (result.data.login) {
         this.setState({loggingIn: false});
         profileActions.setProfile(result.data.login);
-        push('/');
+        push('/chat');
       } else {
         throw new Error(`Invalid login`);
       }

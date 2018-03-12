@@ -18,8 +18,10 @@ import TopAppBar from './components/TopAppBar';
 
 // Routes
 import Root from './pages/Root';
-import NotFound from './pages/NotFound';
 import Login from './pages/Login';
+import Chat from './pages/Chat';
+import NotFound from './pages/NotFound';
+
 
 const store = configureStore();
 ReactDOM.render(
@@ -30,6 +32,7 @@ ReactDOM.render(
           <TopAppBar />
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/chat" component={Chat} />
             <Route exact path="/" component={Root} />
             <Route component={NotFound} />
           </Switch>
