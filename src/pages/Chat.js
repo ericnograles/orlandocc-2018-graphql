@@ -129,7 +129,6 @@ class Chat extends React.Component {
   render() {
     const { messages } = this.state;
     const { classes } = this.props;
-    let channel_name = 'test';
     return (
       <div className={classes.root}>
         <Grid container spacing={24} align="center">
@@ -142,8 +141,8 @@ class Chat extends React.Component {
               <TextField
                 fullWidth
                 id="message"
-                label={`Message to send to ${channel_name}`}
-                placeholder={`Message to send to ${channel_name}`}
+                label={`Message to ${this.channelName}`}
+                placeholder={`Message to ${this.channelName}`}
                 className={classes.textField}
                 value={this.state.message}
                 onChange={this.onChange('message')}
