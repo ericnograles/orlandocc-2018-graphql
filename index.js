@@ -29,8 +29,12 @@ async function startServer() {
     return next();
   });
 
-  let server = createServer(app);
+  // Setup WebSockets
+  let server = createServer();
   await websockets(server);
+
+  // Mount Express
+  server.on('request', app);
   server.listen(port, err => {
     if (err) throw err;
     winston.info(`> Ready on http://localhost:${port}`);
