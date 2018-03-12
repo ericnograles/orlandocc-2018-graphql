@@ -1,6 +1,7 @@
 # import Mutation from "Mutation.graphql"
 # import Subscription from "Subscription.graphql"
 # import User from "User.graphql"
+# import Channel from "Channel.graphql"
 
 """The top level query for this GraphQL server"""
 type Query {
@@ -9,4 +10,10 @@ type Query {
     """A previously issued JWT to identify a user"""
     access_token: String!
   ): User
+
+  """Channels on which to chat"""
+  channels(
+    """A previously issued JWT to identify a user"""
+    access_token: String!
+  ): [Channel]
 }

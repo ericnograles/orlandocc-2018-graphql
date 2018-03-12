@@ -1,0 +1,6 @@
+  """A channel on which to chat"""
+  type Channel {
+    id: String!,
+    name: String!,
+    purpose: String!
+  }
