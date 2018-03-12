@@ -30,12 +30,11 @@ async function startServer() {
   });
 
   let server = createServer(app);
+  await websockets(server);
   server.listen(port, err => {
     if (err) throw err;
     winston.info(`> Ready on http://localhost:${port}`);
   });
-
-  await websockets(server);
 }
 
 // Start the server

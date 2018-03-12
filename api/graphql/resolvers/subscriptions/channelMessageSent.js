@@ -1,8 +1,7 @@
 const { pubsub, EVENTS } = require('../../pubsub');
-// const { withFilter } = require('graphql-subscriptions');
-//const { verify } = require('../../services/jwt');
+const { withFilter } = require('graphql-subscriptions');
+const { verify } = require('../../services/jwt');
 
-console.log('importing channelMessagSent');
 module.exports = {
   subscribe: () => {
     return pubsub.asyncIterator(EVENTS.CHANNEL_MESSAGE_SENT);
