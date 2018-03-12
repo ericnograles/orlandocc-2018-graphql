@@ -86,8 +86,32 @@ class Chat extends React.Component {
     });
   };
 
-  sendMessage = () => {
+  sendMessage = async () => {
+    const { mutate, profile } = this.props;
+    const { access_token } = profile;
+    const { message } = this.state;
+    this.setState((state, props) => {
+      return {
+        sending: true
+      }
+    });
 
+    let result = await mutate({
+      variables: {
+        access_token: access_token,
+        channel_name: 'test-channel',
+        text: message
+      }
+    });
+
+    if (!result.errors) {
+      this.setState((state, props) => {
+        return {
+          message: '',
+          sending: false
+        }
+      });
+    }
   }
 
   render() {
@@ -109,7 +133,7 @@ class Chat extends React.Component {
                 label={`Message to send to ${channel_name}`}
                 placeholder={`Message to send to ${channel_name}`}
                 className={classes.textField}
-                value={this.state.password}
+                value={this.state.message}
                 onChange={this.onChange('message')}
                 margin="normal"
               />
@@ -118,7 +142,7 @@ class Chat extends React.Component {
                 color="primary"
                 className={classes.button}
                 disabled={this.state.sending}
-                onClick={this.login}
+                onClick={this.sendMessage}
               >
                 {this.state.sending ? 'Sending...' : 'Send'}
               </Button>
@@ -130,9 +154,20 @@ class Chat extends React.Component {
   }
 };
 
+const sendMessage = gql`
+mutation send($access_token: String!, $channel_name: String!, $text: String!) {
+  sendChannelMessage(
+    access_token: $access_token
+    channel_name: $channel_name
+    text: $text
+  )
+}
+`;
+
 const enhance = compose(
   connectAsAuthenticated, 
   withStyles(styles),
+  graphql(sendMessage),
   withApollo
 );
 
