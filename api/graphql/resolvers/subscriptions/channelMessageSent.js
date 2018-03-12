@@ -10,7 +10,7 @@ module.exports = {
         let decoded = await verify(access_token);
 
         // Only send back to folks who care about this subscription and have a valid JWT
-        return decoded && payload.channelMessageSent.channel_name === channel_name;
+        return decoded.email && payload.channelMessageSent.channel_name === channel_name;
       }
     )
 };
