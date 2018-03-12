@@ -5,7 +5,6 @@ const envVarsSchema = joi
     JWT_SECRET: joi.string().required(),
     JWT_EXPIRES_IN: joi.string().required(),
     // Redis for Subscriptions Caching
-    WS_PORT: joi.number().required(),
     REDIS_URL: joi.string().required(),
     // SPA build variables
     REACT_APP_GRAPHQL_HTTP_URI: joi.string().required(),
