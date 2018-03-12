@@ -1,17 +1,17 @@
-// DO NOT MODIFY THIS FILE
-// Loads mutation resolvers by convention by reading the ./mutations subdirectory
-// and will call each mutation by the module's filename
-
 const fs = require('fs');
 const path = require('path');
 
-let Mutation = fs
-  .readdirSync(path.resolve(__dirname, './mutations'))
+/**
+ * For a given directory, assembles all .js files as one literal. The key will be the filename.
+ * @param {String} directory - A directory to traverse 
+ */
+let assembleResolvers = directory => fs
+  .readdirSync(path.resolve(directory))
   .filter(fileOrDirName => {
-    // Future enhancement: folders? Or will that be too complicated?
     let stats = fs.lstatSync(
-      path.resolve(__dirname, `./mutations/${fileOrDirName}`)
+      path.resolve(directory, `./${fileOrDirName}`)
     );
+    // Only non-index.js files
     return (
       stats.isFile() &&
       fileOrDirName.indexOf('.js') > -1 &&
@@ -21,7 +21,7 @@ let Mutation = fs
   .map(resolverFile => {
     return {
       moduleName: resolverFile.replace('.js', ''),
-      moduleExport: require(`./mutations/${resolverFile}`)
+      moduleExport: require(`${directory}/${resolverFile}`)
     };
   })
   .reduce((prevValue, currentValue, currentIndex) => {
@@ -30,4 +30,4 @@ let Mutation = fs
     return newValue;
   }, {});
 
-module.exports = Mutation;
+module.exports = assembleResolvers;
