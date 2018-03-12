@@ -1,4 +1,4 @@
-  """Information to login a user to DataHub"""
+  """Login information for a user"""
   input LoginUser {
     email: String!,
     password: String!

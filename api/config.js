@@ -1,6 +1,9 @@
 const joi = require('joi');
 const envVarsSchema = joi
   .object({
+    // Secrets
+    JWT_SECRET: joi.string().required(),
+    JWT_EXPIRES_IN: joi.string().required(),
     // Redis for Subscriptions Caching
     WS_PORT: joi.number().required(),
     REDIS_URL: joi.string().required(),
@@ -20,6 +23,8 @@ const port = process.env.PORT || 3001;
 const isLocalDevelopment = port === 3001;
 
 const ENVIRONMENT = {
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
   IS_PRODUCTION: process.env.NODE_ENV === 'production',
   PORT: port,
   // In production, we serve WS over the same port as the Web App, under the assumption

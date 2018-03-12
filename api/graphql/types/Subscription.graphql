@@ -1,7 +1,12 @@
-# import SubscriptionUserLoggedIn from "SubscriptionUserLoggedIn.graphql" 
+# import SubscriptionChannelMessage from "SubscriptionChannelMessage.graphql" 
 
 """All available real-time subscriptions (RTS) on this GraphQL server"""
 type Subscription {
-  """Indicates when a user has logged in"""
-  userLoggedIn: SubscriptionUserLoggedIn
+  """A message sent to a particular channel"""
+  channelMessageSent(
+    """A valid JWT"""
+    access_token: String!,
+    """The channel from which to subscribe"""
+    channel_name: String!
+  ): SubscriptionChannelMessage
 }

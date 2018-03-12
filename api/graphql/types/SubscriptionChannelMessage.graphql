@@ -1,0 +1,8 @@
+"""The expected payload for the userLoggedIn Subscription Event"""
+type SubscriptionChannelMessage {
+  """The sender's email"""
+  sender_email: String!
+
+  """The message sent by the sender"""
+  text: String!
+}

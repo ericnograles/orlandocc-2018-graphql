@@ -9,7 +9,6 @@ services:
     container_name: orlandocc_2018_graphql
     build: .
     volumes:
-      - ./.env:/app/.env
       - ./index.js:/app/index.js
       - ./package.json:/app/package.json
       - ./api:/app/api
@@ -26,6 +25,8 @@ services:
       - 62003:5858 # Debugging port for Web API
     environment:
       REDIS_URL: redis://app_redis:6379
+      JWT_SECRET: shhh-orlando-code-camp-2018
+      JWT_EXPIRES_IN: "1d"
       REACT_APP_GRAPHQL_HTTP_URI: "http://localhost:62002/api"
       REACT_APP_GRAPHQL_WS_URI: "ws://localhost:62002/"
       WS_PORT: 62002 # WebSockets - in prod it's the same as PORT, but since we proxy through Docker locally, we separate

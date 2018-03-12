@@ -13,4 +13,16 @@ type Mutation {
   register(
     user: RegisterUser
   ) : User
+
+  """Sends a message to a channel"""
+  sendChannelMessage(
+    """A valid JWT for the sender"""
+    access_token: String!
+
+    """The name of the channel to broadcast a message to"""
+    channel_name: String!
+    
+    """The text of the message to send to the channel"""
+    text: String!
+  ) : String
 }
