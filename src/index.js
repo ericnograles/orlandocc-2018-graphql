@@ -32,7 +32,7 @@ ReactDOM.render(
           <TopAppBar />
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/chat" component={Chat} />
+            <Route exact path="/chat/:channel_name" component={Chat} />
             <Route exact path="/" component={Root} />
             <Route component={NotFound} />
           </Switch>

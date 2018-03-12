@@ -28,6 +28,8 @@ class Chat extends React.Component {
     messages: []
   };
 
+  channelName = 'default';
+
   // Unsubscribe handler from Apollo
   subscription = null;
   subscribeToMessages = (props) => {
@@ -46,7 +48,7 @@ class Chat extends React.Component {
       query,
       variables: {
         access_token,
-        channel_name: 'test-channel'
+        channel_name: this.channelName
       }
     });
 
@@ -76,7 +78,8 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const { profile } = this.props;
+    const { profile, routing } = this.props;
+    this.channelName = routing.location.pathname.replace('/chat/', '');
     if (profile.status === PROFILE_STATUS.AUTHENTICATED) {
       this.subscribeToMessages(this.props);
     }
@@ -108,7 +111,7 @@ class Chat extends React.Component {
     let result = await mutate({
       variables: {
         access_token: access_token,
-        channel_name: 'test-channel',
+        channel_name: this.channelName,
         text: message
       }
     });
