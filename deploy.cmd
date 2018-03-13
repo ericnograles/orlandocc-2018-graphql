@@ -109,8 +109,9 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd yarn install --production
   
-  : Run postbuild for SPA
-  call :ExecuteCmd npm run heroku-postbuild
+  : Run CRA build
+  echo Running CRA build for optimized SPA production build
+  call :ExecuteCmd !NPM_CMD! run build
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
