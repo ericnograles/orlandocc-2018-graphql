@@ -107,7 +107,7 @@ call :ExecuteCmd !NPM_CMD! install yarn -g
 echo Installing Yarn Packages and running CRA build
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
-  call :ExecuteCmd yarn install --production
+  call :ExecuteCmd yarn install
   
   : Run CRA build
   : echo Running CRA build for optimized SPA production build
