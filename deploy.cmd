@@ -110,8 +110,8 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   call :ExecuteCmd yarn install --production
   
   : Run CRA build
-  echo Running CRA build for optimized SPA production build
-  call :ExecuteCmd !NPM_CMD! run build
+  : echo Running CRA build for optimized SPA production build
+  : call :ExecuteCmd !NPM_CMD! run build
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
