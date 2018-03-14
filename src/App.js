@@ -74,7 +74,7 @@ export default class App extends React.Component {
       }
     } catch (error) {
       localStorage.removeItem(LOCAL_STORAGE.TOKEN);
-      this.setState({ error });
+      this.setState({ error, loading: false });
     }
   }
 
