@@ -103,6 +103,17 @@ class Login extends React.Component {
                 {this.state.loggingIn ? 'Logging In...' : 'Login'}
               </Button>
             </Grid>
+            <Grid item xs={12}>
+              <a href="/explorer" target="_self">
+              <Button
+                variant="flat"
+                color="secondary"
+                className={classes.button}
+              >
+                Explorer
+              </Button>
+              </a>
+            </Grid>
           </form>
         </Grid>
       </div>
