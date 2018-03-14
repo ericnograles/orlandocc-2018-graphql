@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
 import { graphql, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -73,6 +74,11 @@ class Chat extends React.Component {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  componentWillMount() {
+    const { location } = this.props;
+    this.channelName = location.pathname.replace('/chat/', '');
   }
 
   componentDidMount() {
@@ -173,7 +179,8 @@ mutation send($access_token: String!, $channel_name: String!, $text: String!) {
 const enhance = compose(
   withStyles(styles),
   graphql(sendMessage),
-  withApollo
+  withApollo,
+  withRouter
 );
 
 export default enhance(Chat);
