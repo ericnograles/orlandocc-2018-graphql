@@ -11,4 +11,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-registerServiceWorker();
+// Commenting Service Worker; causes all routing to come from client instead of passing to server
+// registerServiceWorker();
