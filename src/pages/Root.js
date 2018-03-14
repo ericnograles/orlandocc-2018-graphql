@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
-import connectAsAuthenticated from '../redux/connectors/connectAsAuthenticated';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
@@ -13,10 +12,8 @@ const styles = {
 };
 
 class Root extends React.Component {
-  
   render() {
     const { classes, data } = this.props;
-    console.log(data)
     return (
       <div className={classes.root}>
         <ul>
@@ -41,7 +38,6 @@ query getChannels($access_token: String!) {
 }`;
 
 const enhance = compose(
-  connectAsAuthenticated,
   withStyles(styles),
   graphql(query, {
     options: props => {
@@ -51,7 +47,7 @@ const enhance = compose(
         variables: {
           access_token
         },
-        skip: !profile.access_token,
+        skip: !profile.access_token, // TODO: get rid of this, was a Redux accomodation?
         notifyOnNetworkStatusChange: true
       } 
     }

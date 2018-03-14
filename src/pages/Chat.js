@@ -4,8 +4,6 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
-import connectAsAuthenticated from '../redux/connectors/connectAsAuthenticated';
-import { PROFILE_STATUS } from '../redux/reducers/profile';
 import { graphql, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -57,6 +55,7 @@ class Chat extends React.Component {
       next(payload) {
         if (payload.data && !payload.errors) {
           let { channelMessageSent } = payload.data;
+          // Functional state = avoids weird race conditions on multiple sub messages coming in
           setState((state, props) => {
             let messages = state.messages
               .slice()
@@ -71,25 +70,13 @@ class Chat extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log(this.subscription);
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { profile } = this.props;
-    if (profile.status !== PROFILE_STATUS.AUTHENTICATED && nextProps.profile.status === PROFILE_STATUS.AUTHENTICATED) {
-      this.subscribeToMessages(nextProps);
-    }
-  }
-
   componentDidMount() {
-    const { profile, routing } = this.props;
-    this.channelName = routing.location.pathname.replace('/chat/', '');
-    if (profile.status === PROFILE_STATUS.AUTHENTICATED) {
-      this.subscribeToMessages(this.props);
-    }
+    this.subscribeToMessages(this.props);
   }
 
   onChange = name => event => {
@@ -184,7 +171,6 @@ mutation send($access_token: String!, $channel_name: String!, $text: String!) {
 `;
 
 const enhance = compose(
-  connectAsAuthenticated, 
   withStyles(styles),
   graphql(sendMessage),
   withApollo
