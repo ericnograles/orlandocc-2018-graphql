@@ -9,8 +9,8 @@ import { Redirect } from 'react-router-dom';
 export default function connectToApp(WrappedComponent, state, props, redirectToLogin = true) {
   class ConnectedComponent extends React.Component {
     render() {
-      const { profile } = state;
-      return profile.access_token || !redirectToLogin ? (
+      const { profile, error } = state;
+      return !error && (profile.access_token || !redirectToLogin) ? (
         <WrappedComponent {...state} {...props} />
       ) : (
         <Redirect to="/login" />
