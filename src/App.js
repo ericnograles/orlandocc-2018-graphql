@@ -21,16 +21,18 @@ import connectToApp from './connectToApp';
 // Constants
 import { LOCAL_STORAGE } from './constants';
 
+const initialState = {
+  profile: {},
+  error: null,
+  loading: true
+};
+
 export default class App extends React.Component {
-  state = {
-    profile: {},
-    error: null,
-    loading: true
-  };
+  state = initialState;
 
   logout = () => {
     localStorage.removeItem(LOCAL_STORAGE.TOKEN);
-    this.setState({ profile: null });
+    this.setState(Object.assign({}, initialState, { loading: false }));
   };
 
   setProfile = profile => {
@@ -94,7 +96,7 @@ export default class App extends React.Component {
               <div>
                 {profile.access_token && <ConnectedAppBar />}
                 <Switch>
-                  <Route exact path="/login" component={connectToApp(Login, state, props)} />
+                  <Route exact path="/login" component={connectToApp(Login, state, props, false)} />
                   <Route
                     exact
                     path="/chat/:channel_name"

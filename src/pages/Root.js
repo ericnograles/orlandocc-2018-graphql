@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   }
 };
 
@@ -17,11 +17,13 @@ class Root extends React.Component {
     return (
       <div className={classes.root}>
         <ul>
-        {data && data.channels && data.channels.map(channel => 
-        <li key={channel.id}>
-          <Link to={`/chat/${channel.id}`}>{channel.name}</Link>
-        </li>
-        )}
+          {data &&
+            data.channels &&
+            data.channels.map(channel => (
+              <li key={channel.id}>
+                <Link to={`/chat/${channel.id}`}>{channel.name}</Link>
+              </li>
+            ))}
         </ul>
       </div>
     );
@@ -29,13 +31,14 @@ class Root extends React.Component {
 }
 
 const query = gql`
-query getChannels($access_token: String!) {
-  channels(access_token: $access_token) {
-    id
-    name
-    purpose
+  query getChannels($access_token: String!) {
+    channels(access_token: $access_token) {
+      id
+      name
+      purpose
+    }
   }
-}`;
+`;
 
 const enhance = compose(
   withStyles(styles),
@@ -47,9 +50,9 @@ const enhance = compose(
         variables: {
           access_token
         },
-        skip: !profile.access_token, // TODO: get rid of this, was a Redux accomodation?
+        skip: !profile.access_token,
         notifyOnNetworkStatusChange: true
-      } 
+      };
     }
   })
 );
