@@ -1,30 +1,29 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
-import connectAsAuthenticated from '../redux/connectors/connectAsAuthenticated';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   }
 };
 
 class Root extends React.Component {
-  
   render() {
     const { classes, data } = this.props;
-    console.log(data)
     return (
       <div className={classes.root}>
         <ul>
-        {data && data.channels && data.channels.map(channel => 
-        <li key={channel.id}>
-          <Link to={`/chat/${channel.id}`}>{channel.name}</Link>
-        </li>
-        )}
+          {data &&
+            data.channels &&
+            data.channels.map(channel => (
+              <li key={channel.id}>
+                <Link to={`/chat/${channel.id}`}>{channel.name}</Link>
+              </li>
+            ))}
         </ul>
       </div>
     );
@@ -32,16 +31,16 @@ class Root extends React.Component {
 }
 
 const query = gql`
-query getChannels($access_token: String!) {
-  channels(access_token: $access_token) {
-    id
-    name
-    purpose
+  query getChannels($access_token: String!) {
+    channels(access_token: $access_token) {
+      id
+      name
+      purpose
+    }
   }
-}`;
+`;
 
 const enhance = compose(
-  connectAsAuthenticated,
   withStyles(styles),
   graphql(query, {
     options: props => {
@@ -53,7 +52,7 @@ const enhance = compose(
         },
         skip: !profile.access_token,
         notifyOnNetworkStatusChange: true
-      } 
+      };
     }
   })
 );

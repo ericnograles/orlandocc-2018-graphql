@@ -4,9 +4,9 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import { compose } from 'recompose';
-import connectOnly from '../redux/connectors/connectOnly';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router';
 
 const styles = theme => ({
   root: {
@@ -39,8 +39,8 @@ class Login extends React.Component {
 
   login = async () => {
     try {
-      this.setState({loggingIn: true});
-      const { mutate, profileActions, push } = this.props;
+      this.setState({ loggingIn: true });
+      const { mutate, setProfile } = this.props;
       const { email, password } = this.state;
       let result = await mutate({
         variables: {
@@ -52,20 +52,19 @@ class Login extends React.Component {
       });
 
       if (result.data.login) {
-        this.setState({loggingIn: false});
-        profileActions.setProfile(result.data.login);
-        push('/');
+        this.setState({ loggingIn: false });
+        setProfile(result.data.login);
       } else {
         throw new Error(`Invalid login`);
       }
-    } catch(error) {
-      this.setState({error});
+    } catch (error) {
+      this.setState({ error });
     }
   };
 
   render() {
-    const { classes } = this.props;
-    return (
+    const { classes, profile } = this.props;
+    return !profile.access_token ? (
       <div className={classes.root}>
         <Grid container spacing={24} align="center">
           <form className={classes.form} noValidate autoComplete="off">
@@ -107,26 +106,25 @@ class Login extends React.Component {
           </form>
         </Grid>
       </div>
+    ) : (
+      <Redirect to="/" />
     );
   }
-};
+}
 
 const login = gql`
-mutation login($user: LoginUser) {
-  login(user: $user) {
-    first_name
-    last_name
-    email
-    access_token
-    expires_in
-    refresh_token
+  mutation login($user: LoginUser) {
+    login(user: $user) {
+      first_name
+      last_name
+      email
+      access_token
+      expires_in
+      refresh_token
+    }
   }
-}`
+`;
 
-const enhance = compose(
-  connectOnly, 
-  withStyles(styles),
-  graphql(login)
-);
+const enhance = compose(withStyles(styles), graphql(login));
 
 export default enhance(Login);
