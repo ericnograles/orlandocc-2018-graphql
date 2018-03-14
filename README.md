@@ -8,7 +8,9 @@
 
 An example full stack GraphQL application using Apollo Server and Client. Presented on Orlando Code Camp 2018 by Eric Nograles
 
-This application demonstrates all facets of GraphQL: Queries, Mutations, and Subscriptions, and how they might tie into a React/Redux application
+This application demonstrates all facets of GraphQL: Queries, Mutations, and Subscriptions, and how they might tie into a React application.
+
+This application also demonstrates how GraphQL may eliminate the need of a state management library (e.g. Redux, MobX, RxJS) entirely! [See how we did it on this PR.](https://github.com/ericnograles/orlandocc-2018-graphql/pull/1)
 
 ## Prerequisites
 

@@ -4,12 +4,12 @@
 
 """Mutations available to this GraphQL Server"""
 type Mutation {
-  """Logs an existing user into DataHub"""
+  """Logs an existing user in"""
   login(
     user: LoginUser
   ) : User
 
-  """Registers a new user to DataHub"""
+  """Registers a new user"""
   register(
     user: RegisterUser
   ) : User
