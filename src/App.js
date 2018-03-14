@@ -107,7 +107,6 @@ export default class App extends React.Component {
                     path="/"
                     component={connectToApp(Root, state, props)}
                   />
-                  <Route component={NotFound} />
                 </Switch>
               </div>
             </Router>
