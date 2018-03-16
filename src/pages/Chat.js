@@ -7,16 +7,35 @@ import { compose } from 'recompose';
 import { graphql, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`
   },
   textField: {
-    maxWidth: 600
+    width: '91%'
   },
   button: {
-    margin: 10
+    margin: 5
+  },
+  chatContainer: {
+    textAlign: 'left',
+    marginTop: 10,
+    color: '#000000',
+    opacity: '87%'
+  },
+  chatLine: {
+    animation: 'fadein 1s',
+    marginTop: 5
+  },
+  chatSender: {
+    fontWeight: 'bold'
+  },
+  chatControls: {
+    animation: 'fadein 2.5s',
+    flexDirection: 'column'
   }
 });
 
@@ -131,15 +150,16 @@ class Chat extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={24} align="center">
+        <Grid container spacing={24} align="center" className={classes.chatContainer}>
           {messages.map((message, index) => 
-            <Grid item xs={12} key={`${message.sender_email}_${index}`}>
-              {`${message.sender_email} (${new Date()}): ${message.text}`}
+            <Grid item xs={12} key={`${message.sender_email}_${index}`} className={classes.chatLine}>
+              <div className={classes.chat}>
+                <span className={classes.chatSender}>{`${message.sender_email} (${moment().format('hh:mm a')})`}</span>: {message.text}
+              </div>
             </Grid>
           )}
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.chatControls}>
               <TextField
-                fullWidth
                 id="message"
                 label={`Message to ${this.channelName}`}
                 placeholder={`Message to ${this.channelName}`}

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// CSS
+import './styles/index.css';
+
 // GraphQL
 import { ApolloProvider } from 'react-apollo';
 import GraphQLClient from './graphql/client';
