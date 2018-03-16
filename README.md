@@ -4,6 +4,11 @@
 
 ### Presented by Eric Nograles
 
+### Live Demos
+
+* [Heroku](https://orlando-cc-2018-graphql-dev.herokuapp.com)
+* [Azure](https://occ-2018-graphql.azurewebsites.net/)
+
 ## Overview
 
 An example full stack GraphQL application using Apollo Server and Client. Presented on Orlando Code Camp 2018 by Eric Nograles
