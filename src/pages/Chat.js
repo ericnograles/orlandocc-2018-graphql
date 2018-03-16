@@ -30,6 +30,9 @@ const styles = theme => ({
     animation: 'fadein 1s',
     marginTop: 5
   },
+  alternateChatLine: {
+    backgroundColor: 'rgb(200, 200, 200)'
+  },
   chatSender: {
     fontWeight: 'bold'
   },
@@ -50,17 +53,24 @@ class Chat extends React.Component {
 
   // Unsubscribe handler from Apollo
   subscription = null;
-  subscribeToMessages = (props) => {
+  subscribeToMessages = props => {
     const setState = this.setState.bind(this);
     const { client, profile } = props;
     const { access_token } = profile;
     const query = gql`
-    subscription channelMessage($access_token: String!, $channel_name: String!) {
-      channelMessageSent(access_token: $access_token, channel_name: $channel_name) {
-        sender_email
-        text
+      subscription channelMessage(
+        $access_token: String!
+        $channel_name: String!
+      ) {
+        channelMessageSent(
+          access_token: $access_token
+          channel_name: $channel_name
+        ) {
+          sender_email
+          text
+        }
       }
-    }`;
+    `;
 
     const subscription = client.subscribe({
       query,
@@ -77,17 +87,15 @@ class Chat extends React.Component {
           let { channelMessageSent } = payload.data;
           // Functional state = avoids weird race conditions on multiple sub messages coming in
           setState((state, props) => {
-            let messages = state.messages
-              .slice()
-              .concat(channelMessageSent);
+            let messages = state.messages.slice().concat(channelMessageSent);
             return {
               messages
-            }
+            };
           });
         }
       }
     });
-  }
+  };
 
   componentWillUnmount() {
     if (this.subscription) {
@@ -115,7 +123,7 @@ class Chat extends React.Component {
       event.preventDefault();
       this.sendMessage();
     }
-  }
+  };
 
   sendMessage = async () => {
     const { mutate, profile } = this.props;
@@ -124,7 +132,7 @@ class Chat extends React.Component {
     this.setState((state, props) => {
       return {
         sending: true
-      }
+      };
     });
 
     let result = await mutate({
@@ -140,60 +148,82 @@ class Chat extends React.Component {
         return {
           message: '',
           sending: false
-        }
+        };
       });
     }
-  }
+  };
 
   render() {
     const { messages } = this.state;
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
-        <Grid container spacing={24} align="center" className={classes.chatContainer}>
-          {messages.map((message, index) => 
-            <Grid item xs={12} key={`${message.sender_email}_${index}`} className={classes.chatLine}>
-              <div className={classes.chat}>
-                <span className={classes.chatSender}>{`${message.sender_email} (${moment().format('hh:mm a')})`}</span>: {message.text}
-              </div>
-            </Grid>
-          )}
-          <Grid item xs={12} className={classes.chatControls}>
-              <TextField
-                id="message"
-                label={`Message to ${this.channelName}`}
-                placeholder={`Message to ${this.channelName}`}
-                className={classes.textField}
-                value={this.state.message}
-                onChange={this.onChange('message')}
-                onKeyPress={this.onKeyPress}
-                margin="normal"
-              />
-              <Button
-                variant="raised"
-                color="primary"
-                className={classes.button}
-                disabled={this.state.sending}
-                onClick={this.sendMessage}
+        <Grid
+          container
+          spacing={24}
+          align="center"
+          className={classes.chatContainer}
+        >
+          {messages.map((message, index) => {
+            let chatLineClasses = [classes.chatLine];
+            if (index % 2 === 0) {
+              chatLineClasses.push(classes.alternateChatLine);
+            }
+            return (
+              <Grid
+                item
+                xs={12}
+                key={`${message.sender_email}_${index}`}
+                className={chatLineClasses}
               >
-                {this.state.sending ? 'Sending...' : 'Send'}
-              </Button>
-            </Grid>
-            
+                <div className={classes.chat}>
+                  <span className={classes.chatSender}>{`${
+                    message.sender_email
+                  } (${moment().format('hh:mm a')})`}</span>: {message.text}
+                </div>
+              </Grid>
+            );
+          })}
+          <Grid item xs={12} className={classes.chatControls}>
+            <TextField
+              id="message"
+              label={`Message to ${this.channelName}`}
+              placeholder={`Message to ${this.channelName}`}
+              className={classes.textField}
+              value={this.state.message}
+              onChange={this.onChange('message')}
+              onKeyPress={this.onKeyPress}
+              margin="normal"
+            />
+            <Button
+              variant="raised"
+              color="primary"
+              className={classes.button}
+              disabled={this.state.sending}
+              onClick={this.sendMessage}
+            >
+              {this.state.sending ? 'Sending...' : 'Send'}
+            </Button>
+          </Grid>
         </Grid>
       </div>
     );
   }
-};
+}
 
 const sendMessage = gql`
-mutation send($access_token: String!, $channel_name: String!, $text: String!) {
-  sendChannelMessage(
-    access_token: $access_token
-    channel_name: $channel_name
-    text: $text
-  )
-}
+  mutation send(
+    $access_token: String!
+    $channel_name: String!
+    $text: String!
+  ) {
+    sendChannelMessage(
+      access_token: $access_token
+      channel_name: $channel_name
+      text: $text
+    )
+  }
 `;
 
 const enhance = compose(

@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -22,8 +23,11 @@ const styles = {
 
 class TopAppBar extends React.Component {
   render() {
-    const { classes, logout } = this.props;
-
+    const { classes, logout, location } = this.props;
+    let title = `Orlando Code Camp 2018 GraphQL`;
+    if (location.pathname.indexOf('/chat') > -1) {
+      title = location.pathname.replace('/chat/', '#');
+    }
     return (
       <AppBar position="static">
         <Toolbar>
@@ -37,7 +41,7 @@ class TopAppBar extends React.Component {
             </IconButton>
           </Link>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Orlando Code Camp 2018 GraphQL
+            {title}
           </Typography>
           <Button color="inherit" onClick={logout}>
             Logout
@@ -48,8 +52,6 @@ class TopAppBar extends React.Component {
   }
 }
 
-const enhance = compose(
-  withStyles(styles)
-);
+const enhance = compose(withRouter, withStyles(styles));
 
 export default enhance(TopAppBar);

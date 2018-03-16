@@ -75,7 +75,8 @@
     "test": "./node_modules/.bin/jest",
     "test:watch": "./node_modules/.bin/jest --watchAll",
     "prettify:api": "find ./api/**/*.js | xargs ./node_modules/.bin/prettier --write --single-quote",
-    "prettify:client": "find ./src/**/*.js | xargs ./node_modules/.bin/prettier --write --single-quote"
+    "prettify:client": "find ./src/**/*.js | xargs ./node_modules/.bin/prettier --write --single-quote",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "enzyme": "^2.9.1",
