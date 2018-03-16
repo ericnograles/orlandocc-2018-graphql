@@ -1,4 +1,4 @@
-  """A channel on which to chat"""
+  """A channel on which to chat window"""
   type Channel {
     id: String!,
     name: String!,

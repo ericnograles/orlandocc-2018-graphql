@@ -18,28 +18,25 @@ This application also demonstrates how GraphQL may eliminate the need of a state
 1. [Docker](https://www.docker.com/)
 1. At the root of this repo, execute `docker-compose build`
 
-## Quick Setup
+## Quick Start
 
-### Scaffolding
+### Scaffold Docker
 
-1. At the root of this repo, execute `docker-compose up`
+1. At the root of this repo, open a bash terminal and execute `docker-compose up`
 1. Once you see your container running as indicated by the message `orlandocc_2018_graphql_redis | 1:M 11 Mar 11:06:46.779 * The server is now ready to accept connections on port 6379`
-1. To stop all the code and infrastructure, press Ctrl + C from this terminal
-1. To delete all of the infrastructure and start from scratch, at the root of this repo (after stopping it with Ctrl + C), execute `docker-compose down && ./docker_clean.sh && docker-compose up`
+    * To stop all the code and infrastructure, press Ctrl + C from this terminal
+    * To delete all of the infrastructure and start from scratch, at the root of this repo (after stopping it with Ctrl + C), execute `docker-compose down && ./docker_clean.sh && docker-compose up`
+1. Open another bash terminal and execute `./utils/docker_develop.sh` to bring up the GraphQL API and React Dev Server
+    * Hit Ctrl + C in from terminal to bring down the GraphQL API and React Dev Server
 
-### GraphQL
+### Address Reference
 
-1. Open a terminal and execute `./docker_bash.sh` or `./docker_zsh.sh` to open a bash or zsh into the container
-1. Execute `yarn run develop:api` in the bash of the container
-1. Open `http://localhost:62002/explorer` in a browser for the GraphiQL Explorer
-   * **Note**: Any changes in `api` will reflect in your Docker container automatically thanks to Nodemon
-1. To debug the Web API, attach your favorite Node Editor/IDE's debugger to `localhost:62003`
-
-### Web Client
-
-1. Open a terminal and execute `./docker_bash.sh` or `./docker_zsh.sh` to open a bash or zsh into the container
-1. Execute `yarn run develop:client` in the bash of the container
-1. Open `http://localhost:62004` for the `create-react-app` dev server
+| Type  | Address |
+| ------------- | ------------- |
+| GraphQL Explorer  | http://localhost:62002/explorer  |
+| GraphQL API Root  | http://localhost:62002/api  |
+| GraphQL Subscriptions Server  | ws://localhost:62002/  |
+| React SPA Dev Server  | http://localhost:62004  |
 
 ## Troubleshooting
 

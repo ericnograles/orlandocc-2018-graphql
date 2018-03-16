@@ -16,6 +16,7 @@ services:
       - ./src:/app/src
       - ./build:/app/build
       - ./yarn.lock:/app/yarn.lock
+      - ./start.sh:/app/.start.sh
     depends_on:
       - app_redis
     links:
