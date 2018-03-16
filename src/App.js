@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Root from './pages/Root';
 import Login from './pages/Login';
 import Chat from './pages/Chat';
+import NotFound from './pages/NotFound';
 
 // Connector
 import connectToApp from './connectToApp';
@@ -109,6 +110,7 @@ export default class App extends React.Component {
                     path="/"
                     component={connectToApp(Root, state, props)}
                   />
+                  <Route component={NotFound} />
                 </Switch>
               </div>
             </Router>
