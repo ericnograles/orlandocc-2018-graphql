@@ -16,7 +16,7 @@ const styles = theme => ({
 
 const NotFound = (props) => (
   <div className={props.classes.root}>
-    <img src="assets/images/404.gif" />
+    <img src="assets/images/404.gif" alt="wut"/>
     <Link to="/">Home</Link>
   </div>
 );

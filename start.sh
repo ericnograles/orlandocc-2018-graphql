@@ -1,5 +1,5 @@
 # Install dependencies
-yarn install
+rm -rf /app/node_modules && yarn install
 
 # Make sure everything shuts down when someone hits Ctrl + C
 trap 'kill %1' SIGINT

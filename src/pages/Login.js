@@ -12,6 +12,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
+  logo: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
+  },
   form: {
     flexGrow: 1
   },
@@ -67,6 +72,9 @@ class Login extends React.Component {
     return !profile.access_token ? (
       <div className={classes.root}>
         <Grid container spacing={24} align="center">
+          <Grid item xs={12} className={classes.logo}>
+            <img src="assets/images/down-with-occ.gif" alt="I'm down with OCC" />
+          </Grid>
           <form className={classes.form} noValidate autoComplete="off">
             <Grid item xs={12}>
               <TextField
