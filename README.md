@@ -44,7 +44,7 @@ This application also demonstrates how GraphQL may eliminate the need of a state
 
 If you are doing heavy development in Docker and aren't actively removing volumes, you might run into an ENOSPC problem when you execute `docker-compose build` or `docker-compose up`.  
 
-To alleviate this, execute `./docker_clean.sh` in a Terminal then attempt to do another `docker-compose build` or `docker-compose up`.
+To alleviate this, execute `./utils/docker_clean.sh` in a Terminal then attempt to do another `docker-compose build` or `docker-compose up`.
 
 This command deletes and "dangling" volumes and images -- that is, any volumes or images that are orphaned because of prior `docker-compose build` or container removals.
 
