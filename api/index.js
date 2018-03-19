@@ -1,11 +1,12 @@
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const winston = require('winston');
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 
 const { ENVIRONMENT } = require('./config');
 const Schema = require('./graphql/schema');
+const { canvas } = require('./controllers/salesforce');
 
 module.exports = api;
 
@@ -60,11 +61,17 @@ async function api(app) {
     '/explorer',
     graphiqlExpress({
       endpointURL: '/api',
-      subscriptionsEndpoint: !ENVIRONMENT.IS_PRODUCTION ? 
-        `ws://localhost:${ENVIRONMENT.WS_PORT}/` : ENVIRONMENT.WS_URI,
+      subscriptionsEndpoint: !ENVIRONMENT.IS_PRODUCTION
+        ? `ws://localhost:${ENVIRONMENT.WS_PORT}/`
+        : ENVIRONMENT.WS_URI,
       query: ``
     })
   );
+
+  // Canvas!
+  app.post('/salesforce/canvas', canvas);
+  app.set('view engine', 'ejs');
+  app.set('views', path.join(__dirname, '/views'));
 
   return app;
 }

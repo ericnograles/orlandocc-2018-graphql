@@ -17,6 +17,7 @@ services:
       - ./build:/app/build
       - ./yarn.lock:/app/yarn.lock
       - ./start.sh:/app/.start.sh
+      - ./ssl:/app/ssl
     depends_on:
       - app_redis
     links:
@@ -24,6 +25,7 @@ services:
     ports:
       - 62004:3000 # React Development Server
       - 62002:3001 # Web API
+      - 62005:443 # Local HTTPS
       - 62003:5858 # Debugging port for Web API
     environment:
       REDIS_URL: redis://app_redis:6379

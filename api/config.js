@@ -26,10 +26,11 @@ const ENVIRONMENT = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
   IS_PRODUCTION: process.env.NODE_ENV === 'production',
   PORT: port,
+  LOCAL_SSL_PORT: 443,
   // In production, we serve WS over the same port as the Web App, under the assumption
   // we are behind a load balancer
   WS_PORT: isLocalDevelopment ? process.env.WS_PORT : port,
-  WS_URI: process.env.REACT_APP_GRAPHQL_WS_URI 
+  WS_URI: process.env.REACT_APP_GRAPHQL_WS_URI
 };
 
 const REDIS = {
